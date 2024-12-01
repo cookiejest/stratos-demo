@@ -1,0 +1,31 @@
+Question 1 - Which stock has had the greatest relative increase in price in this period?
++------+---------------+--------------+-----------------+
+|symbol|first_day_price|last_day_price|percentage_change|
++------+---------------+--------------+-----------------+
+|  AAPL|         125.07|        192.53|53.93779483489247|
++------+---------------+--------------+-----------------+
+
+Best performer:
++------+---------------+--------------+-----------------+
+|symbol|first_day_price|last_day_price|percentage_change|
++------+---------------+--------------+-----------------+
+|  AAPL|         125.07|        192.53|53.93779483489247|
++------+---------------+--------------+-----------------+
+
+Question 2 - If you had invested $1 million at the beginning of this period by purchasing $10,000 worth of shares in every company in the list equally, how much would you have today? Technical note, you can assume that it is possible to purchase fractional shares?
++------+---------------+--------------+-----------------+------------------+
+|symbol|first_day_price|last_day_price| shares_purchased|       value_today|
++------+---------------+--------------+-----------------+------------------+
+|  AAPL|         125.07|        192.53|79.95522507395859|15393.779483489247|
++------+---------------+--------------+-----------------+------------------+
+
+Portfolio value:
++------------------+
+|   portfolio_value|
++------------------+
+|15393.779483489247|
++------------------+
+
+Question 3 - Which stock had the greatest value in monthly CAGR between January and June?
+NOTE: Assumed that 'monthly CAGR' is the CMGR between January and June ref- https://www.wallstreetprep.com/knowledge/compound-monthly-growth-rate-cmgr/
+Question 4 - During the year, which stock had the greatest decrease in value within a single week and which week was this?

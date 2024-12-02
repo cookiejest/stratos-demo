@@ -50,3 +50,16 @@ def calculate_last_day_value(df):
 
 def calculate_portfolio_value(df):
     return df.agg(sum("value_today").alias("portfolio_value"))
+
+def add_date_calendar(df):
+    #Adds date fields for t field for use in aggr
+    pass
+
+def filter_by_date(df):
+    #do it here
+    pass
+
+
+def calculate_cmgr(df):
+    #do it here
+    pass

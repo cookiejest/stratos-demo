@@ -163,6 +163,12 @@ class Portfolio:
         question2_df.show()
     
     def question3_pipeline(self):
+        question3_df = self.df.transform(add_date_calendar)
+        question3_df = self.df.transform(filter_by_date)
+        question3_df = self.df.transform(calculate_cmgr)
+        question3_df = self.df.transform(find_best_performer) 
+        question3_df.show()
+          
         pass
 
     def question4_pipeline(self):
@@ -181,9 +187,9 @@ if __name__ == "__main__":
 
         # Run data export method for portfolio instance if data export is required
         #Set the polygon API key here if you want to run the export (should be env var in production)
-        portfolio1.export_data("WPrrrs77Czp84b48wFp75_toF_gaa0On")
+        #portfolio1.export_data("WPrrrs77Czp84b48wFp75_toF_gaa0On")
 
-        #portfolio1.question1_pipeline()
+        portfolio1.question1_pipeline()
         #portfolio1.question3_pipeline()
 
 

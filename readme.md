@@ -1,24 +1,37 @@
 
 
 # Setup
+1. Output from the `analysis.py` is available in `output.txt` file
+2. If you want to run `analysis.py` must put your own polygon key on line 20. (In production this should be properly handled env var)
 
-1. Populate your polygon API get as an environment variable.
+2. Install requirements.txt using `pip install -r requirements.txt`
 
-2. Run the requirements.txt using `pip install -r requirements.txt`
-
-3. Run the script using `python src/index.py`
-
-4. function unit tests can be run using `python test`
+3. Run the script using `python src/analysis.py`
 
 
-# Implementation Notes
-1. FB is no longer a valid stock ticker. Changed it META for the purpose of analysis
-2. Implemented as a reusable portfolio class with an `export` method and a data method
+## Project Structure
+- `src` 
+    - `data_util.py` - contains the reusable portfolio class and methods
+    - `custom_transforms.py` contains the pyspark transform methods
+    - `analysis.py` - an example creating a portfolio from csv file, exporting the data and running the question pipelines.
+- `data`
+    - `stocks.csv` as provided
+    - `exports` - where raw api call data is written to from export in parquet format. Could be switched to S3 or cloud storage provider in a real project
+- `tests`
+    - `data_util.py` - contains some example test cases would develop further on a real project for ci/cd purposes
+- `output.txt` contains the answers and output from `analysis.py` run locally on my machine.
+
+## Implementation Notes
+1. Implemented as a reusable portfolio class with an `export_data` method and question pipeline methods. This allows for analsysis of multiple stock portfolios.
+
 3. Implemented sleep() to avoid 5 calls per min rate limit with polygon API
-3. Used pyspark for answering the questions
-4. Used sparkSQL as easier to swap in a faster SQL compatible engine in the future but keep code the same
-4. Did a quick example of doing the analysis without pyspark using duckdb + parquet (would be a potential option for smaller data set sizes as would reduce production cost but would still allow for large dataset analysis than only using pandas)
-https://duckdb.org/
+3. Used pyspark for answering the questions with parquet storage
+4. Workflow is data is exported once from API and then stored locally in compressed parquet files for each stock in the data/exports folder. Making it easier to manually validate numbers in another tool.
+
+## Areas for improvement
+1. Would add more unit tests to make it more stable but ran out of time for now.
+2. Alternative to pyspark could be duckdb to remove the hardware dependency, would be a decision based on the expected processing data quanties required for the project but could result in large hosting cost savings. Using bucket storage + duckdb compared to pyspark. https://duckdb.org/
+3. Rather than using pyspark transforms could have used sparkSQL and then it would be easier to swap SQL engines if required in the future.
 
 
 # How to use
@@ -27,12 +40,9 @@ https://duckdb.org/
 
 ### Export portfolio data from polygon
 
-    portfolio1.export_data()
+    portfolio1.export_data(YOUR_POLYGON_API_KEY)
 
-### Return a pyspark dataframe
+### Example running a question pipeline
 
-    portfolio1.pyspark_df()
+    portfolio1.question1_pipeline()
 
-### Return a populated duckdb connection (optional example)
-
-    portfolio1.duckdb_connection()

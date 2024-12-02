@@ -147,9 +147,10 @@ class Portfolio:
     def question1_pipeline(self):
         # Pyspark transforms to answer questions...
         question1_df = self.df.transform(calculate_first_last_prices)
+        #question1_df.show()
         question1_df = question1_df.transform(calculate_percentage_change)
-        question1_df.show()
-        question1_df = question1_df.transform(find_best_performer)
+        # question1_df.show()
+        question1_df = question1_df.transform(find_best_performer("percentage_change"))
         print("Best performer:")
         question1_df.show()
     
@@ -157,22 +158,32 @@ class Portfolio:
         question2_df = self.df.transform(calculate_first_last_prices)
         question2_df = question2_df.transform(calculate_shares_purchased)
         question2_df = question2_df.transform(calculate_last_day_value)
-        question2_df.show(n=100)
+        question2_df.show()
         question2_df = question2_df.transform(calculate_portfolio_value)
         print("Portfolio value:")
         question2_df.show()
     
     def question3_pipeline(self):
+        start_date = "2023-01-01"
+        end_date = "2023-06-30"
         question3_df = self.df.transform(add_date_calendar)
-        question3_df = self.df.transform(filter_by_date)
-        question3_df = self.df.transform(calculate_cmgr)
-        question3_df = self.df.transform(find_best_performer) 
+        question3_df = question3_df.transform(filter_by_date(start_date, end_date))
+        question3_df = question3_df.transform(calculate_first_last_prices)
+        question3_df = question3_df.transform(calculate_cmgr(start_date, end_date))
         question3_df.show()
-          
-        pass
+        question3_df = question3_df.transform(find_best_performer("cmgr"))
+        print("Best performer CMGR:")
+        question3_df.show()
+
 
     def question4_pipeline(self):
-        pass
+        question4_df = self.df.transform(add_date_calendar)
+        question4_df = question4_df.transform(aggregate_by_period("week"))
+        question4_df.show()
+        question4_df = question4_df.transform(calculate_percentage_change)
+        question4_df = question4_df.transform(find_worst_performer("percentage_change"))
+        print("Worst weekly performer:")
+        question4_df.show()
 
 
 if __name__ == "__main__":
@@ -188,9 +199,9 @@ if __name__ == "__main__":
         # Run data export method for portfolio instance if data export is required
         #Set the polygon API key here if you want to run the export (should be env var in production)
         #portfolio1.export_data("WPrrrs77Czp84b48wFp75_toF_gaa0On")
-
-        portfolio1.question1_pipeline()
+        #portfolio1.question1_pipeline()
         #portfolio1.question3_pipeline()
+        portfolio1.question4_pipeline()
 
 
     except Exception as e:

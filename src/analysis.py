@@ -17,7 +17,9 @@ if __name__ == "__main__":
 
         # Run data export method for portfolio instance if data export is required
         #Set the polygon API key here if you want to run the export (should be env var in production)
-        #portfolio1.export_data("WPrrrs77Czp84b48wFp75_toF_gaa0On")
+        
+        #UNCOMMENT TO RUN DATA EXPORT:
+        # portfolio1.export_data("WPrrrs77Czp84b48wFp75_toF_gaa0On")
         
         print("Question 1 - Which stock has had the greatest relative increase in price in this period?")
         portfolio1.question1_pipeline()

@@ -22,7 +22,7 @@
 - `output.txt` contains the answers and output from `analysis.py` run locally on my machine.
 
 ## Implementation Notes
-1. Implemented as a reusable portfolio class with an `export_data` method and question pipeline methods. This allows for analsysis of multiple stock portfolios.
+1. Implemented as a reusable portfolio class with an `export_data` method and question pipeline methods. This allows for analysis of multiple stock portfolios.
 
 3. Implemented sleep() to avoid 5 calls per min rate limit with polygon API
 3. Used pyspark for answering the questions with parquet storage
